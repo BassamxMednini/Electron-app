@@ -1,5 +1,6 @@
 const {app, BrowserWindow, Menu} = require('electron')
 const shell = require('electron').shell
+const ipc = require('electron').ipcMain
   
   // Behalten Sie eine globale Referenz auf das Fensterobjekt. 
   // Wenn Sie dies nicht tun, wird das Fenster automatisch geschlossen, 
@@ -72,6 +73,9 @@ const shell = require('electron').shell
     }
   })
   
+  ipc.on('update-notify-value', function(event, arg) {
+      win.webContents.send('targetPriceVal', arg)
+  })
   // In dieser Datei können Sie den Rest des App-spezifischen 
   // Hauptprozess-Codes einbinden. Sie können den Code auch 
   // auf mehrere Dateien aufteilen und diese hier einbinden.
